@@ -1,0 +1,95 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:ui="clr-namespace:Core.Common.UI;assembly=Core.Common.UI"
+    x:Class="Industrial.Wpf.Views.ItemProductView"
+    mc:Ignorable="d"
+    Height="600" Width="1024"
+    ui:MvvmBehaviors.LoadedMethodName="LoadItems">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="{Binding ViewTitle}"
+                   Style="{DynamicResource DescriptionHeaderStyle}" />
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+            <Button Width="50"
+                    Height="50"
+                    IsEnabled="True"
+                    HorizontalAlignment="Left"
+                    Command="{Binding AddItemCommand}"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                <Rectangle Width="20"
+                           Height="20"
+                           Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{DynamicResource appbar_add}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </Grid>
+        <!--grid-->
+        <DataGrid x:Name="GridItemProduct"
+                  Grid.Column="0"
+                  Grid.Row="2"
+                  TextOptions.TextFormattingMode="Display"
+                  RenderOptions.ClearTypeHint="Enabled"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  Margin="5"
+                  ItemsSource="{Binding Items}"
+                  SelectionUnit="FullRow"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="Auto" Header="Insert">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit"
+                                    Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Style="{DynamicResource SquareButtonStyle}"
+                                    CommandParameter="{Binding}"
+                                    Margin="5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete"
+                                    Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Style="{DynamicResource SquareButtonStyle}"
+                                    CommandParameter="{Binding}"
+                                    Margin="5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" />
+                <controls:DataGridNumericUpDownColumn Binding="{Binding Price}" Header="Price" Width="*" />
+                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
+                <controls:DataGridNumericUpDownColumn Binding="{Binding Quantity}" Header="Quantity" Width="*" />
+
+            </DataGrid.Columns>
+            <DataGrid.Style>
+                <Style BasedOn="{StaticResource MetroDataGrid}"
+                       TargetType="{x:Type DataGrid}">
+                    <Setter Property="AlternatingRowBackground"
+                            Value="{DynamicResource GrayBrush10}" />
+                </Style>
+            </DataGrid.Style>
+        </DataGrid>
+    </Grid>
+</UserControl>

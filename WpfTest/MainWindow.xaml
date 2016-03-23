@@ -1,0 +1,41 @@
+﻿<Window x:Class="WpfTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:WpfTest"
+        xmlns:viewmodel="clr-namespace:WpfTest.ViewModels"
+        xmlns:view="clr-namespace:WpfTest.Views"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:ItemProductViewModel}">
+            <view:ItemProductView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="NavBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="Customers"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="itemProduct"
+                    Grid.Column="0" />
+            <Button Content="OrderPrep"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="orderPrep"
+                    Grid.Column="2" />
+        </Grid>
+        <Grid x:Name="MainContent"
+              Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</Window>
