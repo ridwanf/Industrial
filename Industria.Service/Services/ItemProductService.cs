@@ -21,12 +21,6 @@ namespace Industrial.Service.Services
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public ItemProductService()
-        {
-
-        }
-
-
         public Task<List<ItemProductModel>> GetAllAsync()
         {
             return Task.Run(() => GetAll());
@@ -105,6 +99,14 @@ namespace Industrial.Service.Services
         {
             var item = await Task.Run(() => Delete(id));
             return item;
+        }
+
+        public IEnumerable<ItemProductModel> Search(string searchWord, int i, int pageSize, out int total)
+        {
+            var data = _itemRepository
+                .FindBy(a => (a.IsActive) && (a.Name.Contains(searchWord) || (a.Description.Contains(searchWord)))).OrderByDescending(a => a.Id).Skip((i - 1) * pageSize).Take(pageSize);
+            total = data.Count();
+            return data.ConvertToListModel();
         }
 
         public ItemProductModel Delete(int id)

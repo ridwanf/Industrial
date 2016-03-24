@@ -97,7 +97,7 @@ namespace Industrial.Wpf.Infrastructures
         public PageableCollection(IEnumerable<T> allObjects, int count,int currentPageNumber, int? entriesPerPage = null)
         {
             CurrentPageNumber = currentPageNumber;
-         
+            TotalData = count;
             CurrentPageItems = new ObservableCollection<T>(allObjects);
             if (entriesPerPage != null)
                 PageSize = (int)entriesPerPage;
@@ -127,19 +127,18 @@ namespace Industrial.Wpf.Infrastructures
             }
         }
 
-        //public virtual void Remove(T item)
-        //{
-        //    AllObjects.Remove(item);
+        public virtual void Remove(T item)
+        {
+            CurrentPageItems.Remove(item);
+            TotalData--;
+            // Update the total number of pages
+            TotalPagesNumber = (TotalData - 1) / PageSize + 1;
 
-        //    // Update the total number of pages
-        //    SendPropertyChanged(() => TotalPagesNumber);
+            // if the last item on the last page is removed
+            if (CurrentPageNumber > TotalPagesNumber)
+                CurrentPageNumber--;
 
-        //    // if the last item on the last page is removed
-        //    if (CurrentPageNumber > TotalPagesNumber)
-        //        CurrentPageNumber--;
-
-        //    Calculate(CurrentPageNumber);
-        //}
+        }
 
         //public virtual void Add(T item)
         //{

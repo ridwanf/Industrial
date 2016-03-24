@@ -17,19 +17,26 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace Industrial.Wpf.ViewModels
 {
-    public class ItemProductViewModel : BindableBase
+    public class ItemProductViewModel : PageableBase
     {
-        public IItemProductService _Service = new ItemProductService();
+        public IItemProductService _Service;
         private IDialogService _dialogService;
-        private ObservableCollection<ItemProductModel> _items;
+        private SortablePageableCollection<ItemProductModel> _items;
+        private int _totalItem = 0;
+
         private AddEditItemViewModel _currentItem;
         private List<ItemProductModel> _allItems;
+        private string _searchWord;
 
         public RelayCommand NewItem { get; private set; }
         public RelayCommand<ItemProductModel> EditItemCommand { get; private set; }
         public RelayCommand<ItemProductModel> DeleteItemCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand TestAlert { get; private set; }
+        public RelayCommand GoToNextPageCommand { get; private set; }
+        public RelayCommand GoToPreviousPageCommand { get; private set; }
+        public RelayCommand ChangePageSizeCommand { get; private set; }
+        public RelayCommand SearchCommand { get; private set; }
 
         public event Action<ItemProductModel> AddItemRequested = delegate { };
         public event Action<ItemProductModel> EditItemRequested = delegate { };
@@ -43,11 +50,34 @@ namespace Industrial.Wpf.ViewModels
             EditItemCommand = new RelayCommand<ItemProductModel>(OnEditCommand);
             DeleteItemCommand = new RelayCommand<ItemProductModel>(OnDeleteCommand);
             AddItemCommand = new RelayCommand(OnAddCommand);
+            SearchCommand = new RelayCommand(OnSearchCommand);
+            // Create Commands 
+            GoToNextPageCommand = new RelayCommand(GoToNextPage);
+            GoToPreviousPageCommand = new RelayCommand(GoToPreviousPage);
+            ChangePageSizeCommand = new RelayCommand(ChangePageSize);
+
+        }
+
+        private void OnSearchCommand()
+        {
+            if (!string.IsNullOrWhiteSpace(_searchWord))
+            {
+                int total;
+                var data = _Service.Search(_searchWord,1, Items.PageSize, out total);
+                _totalItem = total;
+                Items = new SortablePageableCollection<ItemProductModel>(data, _totalItem, 1, Items.PageSize);
+            }
+            else
+            {
+                LoadItems();
+            }
         }
 
         private void OnAddCommand()
         {
             AddItemRequested(new ItemProductModel() { Id = 0, IsActive = true, CreatedDate = DateTime.Now });
+            _totalItem++;
+            LoadItems();
         }
 
         private async void OnDeleteCommand(ItemProductModel obj)
@@ -57,9 +87,11 @@ namespace Industrial.Wpf.ViewModels
                 "Are you sure you want to delete this Match record?");
             if (result == MessageDialogResult.Affirmative)
             {
-                _Service.DeleteAsync(obj.Id);
+               await _Service.DeleteAsync(obj.Id);
                 _items.Remove(obj);
+                _totalItem--;
             }
+            LoadItems();
         }
 
         private void OnEditCommand(ItemProductModel obj)
@@ -68,7 +100,7 @@ namespace Industrial.Wpf.ViewModels
         }
 
 
-        public ObservableCollection<ItemProductModel> Items
+        public SortablePageableCollection<ItemProductModel> Items
         {
             get { return _items; }
             set { SetProperty(ref _items, value); }
@@ -81,8 +113,9 @@ namespace Industrial.Wpf.ViewModels
             {
                 return;
             }
-            _allItems = await _Service.GetAllAsync();
-            Items = new ObservableCollection<ItemProductModel>(_allItems);
+            _totalItem = _Service.GetAll().Count;
+            Items = new SortablePageableCollection<ItemProductModel>(await _Service.GetAllAsync(1, 5), _totalItem, 1, 5);
+
         }
 
         public AddEditItemViewModel CurrentItem
@@ -97,7 +130,40 @@ namespace Industrial.Wpf.ViewModels
             get {return "Item Product List"; }
         }
 
+        private void ChangePageSize()
+        {
 
-        
+            Items = new SortablePageableCollection<ItemProductModel>(_Service.GetAll(Items.CurrentPageNumber, Items.PageSize), _totalItem, 1, Items.PageSize);
+        }
+
+        private void GoToPreviousPage()
+        {
+            if (Items.CurrentPageNumber > 1)
+            {
+                var currentPage = Items.CurrentPageNumber;
+                var data = _Service.GetAll(Items.CurrentPageNumber - 1, Items.PageSize);
+                Items = new SortablePageableCollection<ItemProductModel>(data, _totalItem, currentPage, Items.PageSize);
+                Items.GoToPreviousPage();
+            }
+
+        }
+
+        private void GoToNextPage()
+        {
+            if (Items.CurrentPageNumber != Items.TotalPagesNumber)
+            {
+                var currentPage = Items.CurrentPageNumber;
+                var data = _Service.GetAll(currentPage + 1, Items.PageSize);
+                Items = new SortablePageableCollection<ItemProductModel>(data, _totalItem, currentPage, Items.PageSize);
+                Items.GoToNextPage();
+            }
+
+        }
+
+        public string SearchWord
+        {
+            get { return _searchWord; }
+            set { SetProperty(ref _searchWord,value); }
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace Industrial.Service.Services
         Task<ItemProductModel> EditAsync(ItemProductModel item);
 
         Task<ItemProductModel> DeleteAsync(int id);
+        IEnumerable<ItemProductModel> Search(string searchWord, int i, int pageSize, out int total);
     }
 }

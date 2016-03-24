@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:ui="clr-namespace:Core.Common.UI;assembly=Core.Common.UI"
+    xmlns:infrastructures="clr-namespace:Industrial.Wpf.Infrastructures"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     x:Class="Industrial.Wpf.Views.ItemProductView"
     mc:Ignorable="d"
     Height="600" Width="1024"
@@ -17,7 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="400" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="{Binding ViewTitle}"
@@ -39,57 +41,97 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBox Width="250"
+                         Margin="10"
+                         Text="{Binding SearchWord}"
+                         ToolTip="Search..." />
+                <Button Margin="10" Width="80" 
+                                    Style="{DynamicResource SquareButtonStyle}"
+                        Command="{Binding SearchCommand}" Content="Search"></Button>
+            </StackPanel>
         </Grid>
         <!--grid-->
-        <DataGrid x:Name="GridItemProduct"
-                  Grid.Column="0"
-                  Grid.Row="2"
-                  TextOptions.TextFormattingMode="Display"
-                  RenderOptions.ClearTypeHint="Enabled"
-                  HeadersVisibility="Column"
-                  CanUserAddRows="False"
-                  Margin="5"
-                  ItemsSource="{Binding Items}"
-                  SelectionUnit="FullRow"
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Width="Auto" Header="Insert">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Edit"
+        <Grid Margin="5,5,5,5" Grid.Column="0" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <infrastructures:SortableDataGrid x:Name="GridItemProduct"
+                                          Grid.Row="0"
+                                          TextOptions.TextFormattingMode="Display"
+                                          RenderOptions.ClearTypeHint="Enabled"
+                                          HeadersVisibility="Column"
+                                          CanUserAddRows="False"
+                                          Margin="5"
+                                          ItemsSource="{Binding Items.CurrentPageItems}"
+                                          FullItemsSource="{Binding Items}"
+                                          SelectionUnit="FullRow"
+                                          IsReadOnly="True"
+                                          AutoGenerateColumns="False">
+                <infrastructures:SortableDataGrid.Columns>
+
+                    <DataGridTemplateColumn Width="Auto" Header="Insert">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit"
                                     Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                     Style="{DynamicResource SquareButtonStyle}"
                                     CommandParameter="{Binding}"
                                     Margin="5" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="Auto" Header="Delete">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Delete"
+                    <DataGridTemplateColumn Width="Auto" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete"
                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                     Style="{DynamicResource SquareButtonStyle}"
                                     CommandParameter="{Binding}"
                                     Margin="5" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" />
-                <controls:DataGridNumericUpDownColumn Binding="{Binding Price}" Header="Price" Width="*" />
-                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
-                <controls:DataGridNumericUpDownColumn Binding="{Binding Quantity}" Header="Quantity" Width="*" />
-
-            </DataGrid.Columns>
-            <DataGrid.Style>
-                <Style BasedOn="{StaticResource MetroDataGrid}"
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*" />
+                    <controls:DataGridNumericUpDownColumn Binding="{Binding Price}" Header="Price" Width="*" />
+                    <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
+                    <controls:DataGridNumericUpDownColumn Binding="{Binding Quantity}" Header="Quantity" Width="*" />
+                </infrastructures:SortableDataGrid.Columns>
+                <DataGrid.Style>
+                    <Style BasedOn="{StaticResource MetroDataGrid}"
                        TargetType="{x:Type DataGrid}">
-                    <Setter Property="AlternatingRowBackground"
+                        <Setter Property="AlternatingRowBackground"
                             Value="{DynamicResource GrayBrush10}" />
-                </Style>
-            </DataGrid.Style>
-        </DataGrid>
+                    </Style>
+                </DataGrid.Style>
+            </infrastructures:SortableDataGrid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15,0,10"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Margin="5,0,5,0" Text="Entries Per Page:" TextAlignment="Center" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding Items.PageSize}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangePageSizeCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0,15,0,10"
+                    HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Content="Previous" ToolTip="Previous Page" Width="70" Command="{Binding GoToPreviousPageCommand}" />
+                <TextBlock Margin="5,0,5,0" FontWeight="Bold" FontSize="13" TextAlignment="Center"
+                       VerticalAlignment="Center">
+                <Run Text="{Binding Items.CurrentPageNumber, Mode=OneWay}" />
+                <Run Text=" of " />
+                <Run Text="{Binding Items.TotalPagesNumber, Mode=OneWay}" />
+                </TextBlock>
+                <Button Content="Next" ToolTip="Next Page" Width="70" Command="{Binding GoToNextPageCommand}" />
+            </StackPanel>
+
+        </Grid>
+    
     </Grid>
 </UserControl>
