@@ -85,15 +85,20 @@
     <Compile Include="Infrastructures\DialogService.cs" />
     <Compile Include="Infrastructures\ISortable.cs" />
     <Compile Include="Infrastructures\PageableCollection.cs" />
+    <Compile Include="Infrastructures\PagerModel.cs" />
     <Compile Include="Infrastructures\SortableDataGrid.cs" />
     <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\ItemProductViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TestPagingGridViewModel.cs" />
     <Compile Include="Views\AddEditItemView.xaml.cs">
       <DependentUpon>AddEditItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemProductView.xaml.cs">
       <DependentUpon>ItemProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestPagingGridView.xaml.cs">
+      <DependentUpon>TestPagingGridView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestPagingGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

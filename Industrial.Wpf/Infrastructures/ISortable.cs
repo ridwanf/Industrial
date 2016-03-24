@@ -12,8 +12,8 @@ namespace Industrial.Wpf.Infrastructures
 
     public class SortablePageableCollection<T> : PageableCollection<T>, ISortable
     {
-        public SortablePageableCollection(IEnumerable<T> allObjects, int? entriesPerPage = null)
-            : base(allObjects, entriesPerPage)
+        public SortablePageableCollection(IEnumerable<T> allObjects, int count,int currentPage, int? entriesPerPage = null)
+            : base(allObjects,count,currentPage, entriesPerPage)
         {
         }
 
@@ -22,12 +22,12 @@ namespace Industrial.Wpf.Infrastructures
             PropertyInfo prop = typeof(T).GetProperty(propertyName);
 
             if (string.IsNullOrEmpty(direction) || direction.ToLower() == "descending")
-                AllObjects = new ObservableCollection<T>(AllObjects.OrderByDescending(x => prop.GetValue(x, null)));
+                AllObjects = new ObservableCollection<T>(CurrentPageItems.OrderByDescending(x => prop.GetValue(x, null)));
             else
-                AllObjects = new ObservableCollection<T>(AllObjects.OrderBy(x => prop.GetValue(x, null)));
+                AllObjects = new ObservableCollection<T>(CurrentPageItems.OrderBy(x => prop.GetValue(x, null)));
 
             CurrentPageNumber = 1;
-            SetCurrentPageItems();
+           // SetCurrentPageItems();
         }
     }
 }

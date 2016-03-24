@@ -9,6 +9,7 @@ namespace Industrial.Wpf.ViewModels
     {
         private ItemProductViewModel _itemProductViewModel;
         private AddEditItemViewModel _addEditItemViewModel;
+        private TestPagingGridViewModel _testPagingGridViewModel;
         
         public RelayCommand<string> NavCommand { get; private set; }
 
@@ -20,7 +21,7 @@ namespace Industrial.Wpf.ViewModels
             NavCommand = new RelayCommand<string>(OnNav);
             _itemProductViewModel = ContainerHelper.Container.Resolve<ItemProductViewModel>();
             _addEditItemViewModel = ContainerHelper.Container.Resolve<AddEditItemViewModel>();
-
+            _testPagingGridViewModel = ContainerHelper.Container.Resolve<TestPagingGridViewModel>();
             _itemProductViewModel.EditItemRequested += NavToEditItem;
             _itemProductViewModel.AddItemRequested += NavToAddItem;
             _addEditItemViewModel.Done += NavToItemList;
@@ -63,6 +64,9 @@ namespace Industrial.Wpf.ViewModels
             {
                 case "itemProduct":
                     CurrentViewModel = _itemProductViewModel;
+                    break;
+                case "testPaging":
+                    CurrentViewModel = _testPagingGridViewModel;
                     break;
                 default:
                     CurrentViewModel = _itemProductViewModel;

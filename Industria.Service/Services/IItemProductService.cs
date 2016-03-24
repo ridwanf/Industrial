@@ -10,7 +10,8 @@ namespace Industrial.Service.Services
 
         List<ItemProductModel> GetAll();
         Task<ItemProductModel> FindByIdAsync(int id);
-
+        Task<List<ItemProductModel>> GetAllAsync(int skip, int pageSize);
+        List<ItemProductModel> GetAll(int page, int pageSize);
         Task<ItemProductModel> CreateAsync(ItemProductModel item);
 
         Task<ItemProductModel> EditAsync(ItemProductModel item);

@@ -40,6 +40,19 @@ namespace Industrial.Service.Services
         }
 
 
+        public Task<List<ItemProductModel>> GetAllAsync(int skip, int pageSize)
+        {
+            return Task.Run(() => GetAll( skip,  pageSize));
+        }
+
+        public List<ItemProductModel> GetAll(int skip, int pageSize)
+        {
+         var data = _itemRepository.FindAll(a => a.IsActive).OrderByDescending(a=>a.Id).Skip((skip-1)*pageSize).Take(pageSize);
+
+            return data.ConvertToListModel().ToList();
+        }
+
+
         public Task<ItemProductModel> FindByIdAsync(int id)
         {
             return Task.Run(() => FindById(id));

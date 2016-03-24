@@ -75,6 +75,10 @@
             <DataTemplate DataType="{x:Type viewModels:AddEditItemViewModel}">
                 <views:AddEditItemView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:TestPagingGridViewModel}">
+                <views:TestPagingGridView />
+            </DataTemplate>
         </ResourceDictionary>
 
 
@@ -99,6 +103,9 @@
                     <MenuItem Header="Item Product"
                               Command="{Binding NavCommand}"
                               CommandParameter="itemProduct" />
+                    <MenuItem Header="Test Paging"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="testPaging" />
                 </MenuItem>
 
             </Menu>
