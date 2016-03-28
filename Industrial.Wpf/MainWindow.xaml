@@ -4,7 +4,7 @@
                    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:viewModels="clr-namespace:Industrial.Wpf.ViewModels" 
                    xmlns:views="clr-namespace:Industrial.Wpf.Views"
-                   Title="Main Window" Height="600" Width="1024"
+                   Title="Main Window" Height="650" Width="1024"
                    TitleCaps="False"
                    WindowStartupLocation="CenterScreen"
                    GlowBrush="{DynamicResource AccentColorBrush}"
@@ -76,6 +76,14 @@
                 <views:AddEditItemView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:SupplierViewModel}">
+                <views:SupplierView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:AddEditSupplierViewModel}">
+                <views:AddEditSupplierView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModels:TestPagingGridViewModel}">
                 <views:TestPagingGridView />
             </DataTemplate>
@@ -103,6 +111,9 @@
                     <MenuItem Header="Item Product"
                               Command="{Binding NavCommand}"
                               CommandParameter="itemProduct" />
+                    <MenuItem Header="Supplier"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="supplier" />
                     <MenuItem Header="Test Paging"
                               Command="{Binding NavCommand}"
                               CommandParameter="testPaging" />

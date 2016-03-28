@@ -45,11 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\Master\ItemProductMapper.cs" />
+    <Compile Include="Mappers\Master\SupplierMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\IItemProductService.cs" />
-    <Compile Include="Services\ItemProductService.cs" />
+    <Compile Include="Services\ISupplierService.cs" />
+    <Compile Include="Services\ItemProductService.cs">
+      <DependentUpon>IItemProductService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\SupplierService.cs" />
     <Compile Include="ViewModel\Master\ItemProductModel.cs" />
     <Compile Include="ViewModel\Master\IViewModelBase.cs" />
+    <Compile Include="ViewModel\Master\SupplierModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common.UI\Core.Common.UI.csproj">

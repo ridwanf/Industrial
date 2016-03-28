@@ -6,6 +6,7 @@ namespace Core.Common.UI
 {
     public class BindableBase : INotifyPropertyChanged
     {
+        private bool _isBusy;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         /// <summary>
@@ -39,6 +40,12 @@ namespace Core.Common.UI
         public virtual string ViewTitle
         {
             get { return String.Empty; }
+        }
+
+        public  bool IsBusy
+        {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
     }
 }

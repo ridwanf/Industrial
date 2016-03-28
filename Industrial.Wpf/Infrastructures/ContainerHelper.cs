@@ -19,6 +19,15 @@ namespace Industrial.Wpf.Infrastructures
                 new ContainerControlledLifetimeManager());
             _container.RegisterType<IItemProductRepository, ItemProductRepository>(
                 new ContainerControlledLifetimeManager());
+
+
+            _container.RegisterType<ISupplierService, SupplierService>(
+                new ContainerControlledLifetimeManager());
+            _container.RegisterType<ISupplierRepository, SupplierRepository>(
+                new ContainerControlledLifetimeManager());
+
+
+
             _container.RegisterType<IUnitOfWork, EFUnitOfWork>(
                new ContainerControlledLifetimeManager());
             _container.RegisterType<IUnitOfWorkFactory, EFUnitOfWorkFactory>(

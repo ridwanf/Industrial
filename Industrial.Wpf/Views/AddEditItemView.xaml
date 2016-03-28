@@ -28,7 +28,7 @@
             <Label Content="{Binding ViewTitle}"
                        Style="{DynamicResource DescriptionHeaderStyle}" />
         </StackPanel>
-        <Grid x:Name="grid1" Grid.Row="1" VerticalAlignment="Top" Margin="10,10,10,10" HorizontalAlignment="Left" DataContext="{Binding ItemProduct}">
+        <Grid x:Name="grid1" Grid.Row="1" VerticalAlignment="Top" Margin="10,10,10,10" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -55,15 +55,39 @@
                      HorizontalAlignment="Left" Grid.Column="1">
             </TextBox>
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Price:"/>
-            <TextBox x:Name="priceTextBox"  Style="{DynamicResource InputTextStyle}"  
-                     Text="{Binding Price, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="3" TextAlignment="Right"  Grid.Column="1"/>
+            <metro:NumericUpDown HideUpDownButtons="True" HasDecimals="True"  x:Name="priceTextBox"    
+                     Value="{Binding Price, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="3" TextAlignment="Right"  Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Quantity:"/>
-            <TextBox x:Name="quantityTextBox"  Style="{DynamicResource InputTextStyle}"  Text="{Binding Quantity,  ValidatesOnDataErrors=True}" Grid.Row="3" Margin="3" TextAlignment="Right" Grid.Column="1"/>
+            <metro:NumericUpDown HideUpDownButtons ="True"  x:Name="quantityTextBox" HasDecimals="False"   Value="{Binding Quantity,  ValidatesOnDataErrors=True}" Grid.Row="3" Margin="3" TextAlignment="Right" Grid.Column="1"/>
             
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="90,10,10,10">
-            <Button Content="Save" Margin="5" Command="{Binding SaveCommand}"   Style="{DynamicResource SquareButtonStyle}" Width="80" metro:ButtonHelper.PreserveTextCase="True"></Button>
-            <Button Content="Cancel" Margin="5" Command="{Binding CancelCommand}"   Style="{DynamicResource SquareButtonStyle}" Width="80"  metro:ButtonHelper.PreserveTextCase="True"></Button>
+            <Button Margin="5" Command="{Binding SaveCommand}"   Style="{DynamicResource SquareButtonStyle}" Width="80" metro:ButtonHelper.PreserveTextCase="True">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="Save"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button  Margin="5" Command="{Binding CancelCommand}"   Style="{DynamicResource SquareButtonStyle}" Width="80"  metro:ButtonHelper.PreserveTextCase="True">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_undo_curve}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="Cancel"></TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

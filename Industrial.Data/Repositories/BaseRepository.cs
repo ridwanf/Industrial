@@ -93,6 +93,8 @@ namespace Industrial.Data.Repositories
             DataContextFactory.GetDataContext().Set<T>().Remove(entity);
         }
 
+        public abstract void SoftDelete(T entity);
+
         public T Update(T entity)
         {
             DataContextFactory.GetDataContext().Entry(entity).State = EntityState.Modified;

@@ -26,60 +26,109 @@
                    Style="{DynamicResource DescriptionHeaderStyle}" />
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-            <Button Width="50"
-                    Height="50"
+            <Button Width="60"
+                    Height="60"
                     IsEnabled="True"
                     HorizontalAlignment="Left"
                     Command="{Binding AddItemCommand}"
                     Style="{DynamicResource MetroCircleButtonStyle}">
-                <Rectangle Width="20"
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="20"
                            Height="20"
                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill"
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
                                      Visual="{DynamicResource appbar_add}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="Add"></TextBlock>
+                </StackPanel>
+   
             </Button>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <TextBox Width="250"
+
+                <TextBox
+                    Width="250"
+                    Margin="10"
+                    Text="{Binding SearchWord}">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}"
+                               BasedOn="{StaticResource MetroTextBox}">
+                            <Setter Property="controls:TextBoxHelper.ClearTextButton"
+                                    Value="True" />
+                            <Style.Triggers>
+                                <Trigger Property="controls:TextBoxHelper.HasText"
+                                         Value="False">
+                                    <Setter Property="controls:TextBoxHelper.ClearTextButton"
+                                            Value="False" />
+                                    <Setter Property="controls:TextBoxHelper.Watermark"
+                                            Value="Search.." />
+                                </Trigger>
+                                <Trigger Property="controls:TextBoxHelper.HasText"
+                                         Value="True">
+                                    <Setter Property="controls:TextBoxHelper.ClearTextButton"
+                                            Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <!--<TextBox Width="250"
                          Margin="10"
                          Text="{Binding SearchWord}"
-                         ToolTip="Search..." />
-                <Button Margin="10" Width="80" 
-                                    Style="{DynamicResource SquareButtonStyle}"
-                        Command="{Binding SearchCommand}" Content="Search"></Button>
+                         ToolTip="Search..." />-->
+
+
+                <Button Width="60"
+                        Height="60"
+                        IsEnabled="True"
+                        HorizontalAlignment="Left"
+                        Command="{Binding SearchCommand}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <StackPanel Orientation="Vertical">
+                        <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_page_search}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Text="Search"></TextBlock>
+                    </StackPanel>
+               
+                </Button>
             </StackPanel>
         </Grid>
         <!--grid-->
         <Grid Margin="5,5,5,5" Grid.Column="0" Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <infrastructures:SortableDataGrid x:Name="GridItemProduct"
-                                          Grid.Row="0"
-                                          TextOptions.TextFormattingMode="Display"
-                                          RenderOptions.ClearTypeHint="Enabled"
-                                          HeadersVisibility="Column"
-                                          CanUserAddRows="False"
-                                          Margin="5"
-                                          ItemsSource="{Binding Items.CurrentPageItems}"
-                                          FullItemsSource="{Binding Items}"
-                                          SelectionUnit="FullRow"
-                                          IsReadOnly="True"
-                                          AutoGenerateColumns="False">
+                                              Grid.Row="0"
+                                              TextOptions.TextFormattingMode="Display"
+                                              RenderOptions.ClearTypeHint="Enabled"
+                                              HeadersVisibility="Column"
+                                              CanUserAddRows="False"
+                                              Margin="5"
+                                              ItemsSource="{Binding Items.CurrentPageItems}"
+                                              FullItemsSource="{Binding Items}"
+                                              SelectionUnit="FullRow"
+                                              IsReadOnly="True"
+                                              AutoGenerateColumns="False">
                 <infrastructures:SortableDataGrid.Columns>
 
                     <DataGridTemplateColumn Width="Auto" Header="Insert">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Edit"
-                                    Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    Style="{DynamicResource SquareButtonStyle}"
-                                    CommandParameter="{Binding}"
-                                    Margin="5" />
+                                        Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        Style="{DynamicResource SquareButtonStyle}"
+                                        CommandParameter="{Binding}"
+                                        Margin="5" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -88,10 +137,10 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Delete"
-                                    Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    Style="{DynamicResource SquareButtonStyle}"
-                                    CommandParameter="{Binding}"
-                                    Margin="5" />
+                                        Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        Style="{DynamicResource SquareButtonStyle}"
+                                        CommandParameter="{Binding}"
+                                        Margin="5" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -102,14 +151,14 @@
                 </infrastructures:SortableDataGrid.Columns>
                 <DataGrid.Style>
                     <Style BasedOn="{StaticResource MetroDataGrid}"
-                       TargetType="{x:Type DataGrid}">
+                           TargetType="{x:Type DataGrid}">
                         <Setter Property="AlternatingRowBackground"
-                            Value="{DynamicResource GrayBrush10}" />
+                                Value="{DynamicResource GrayBrush10}" />
                     </Style>
                 </DataGrid.Style>
             </infrastructures:SortableDataGrid>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15,0,10"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Margin="5,0,5,0" Text="Entries Per Page:" TextAlignment="Center" VerticalAlignment="Center" />
                 <ComboBox ItemsSource="{Binding EntriesPerPageList}" SelectedItem="{Binding Items.PageSize}">
                     <i:Interaction.Triggers>
@@ -119,19 +168,52 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
             </StackPanel>
-            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0,15,0,10"
-                    HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Button Content="Previous" ToolTip="Previous Page" Width="70" Command="{Binding GoToPreviousPageCommand}" />
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0,10,0,10"
+                        HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <Button Width="50"
+                        Height="50"
+                        IsEnabled="True"
+                        ToolTip="Previous Page"
+                        HorizontalAlignment="Left"
+                        Command="{Binding GoToPreviousPageCommand}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_chevron_left}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+
                 <TextBlock Margin="5,0,5,0" FontWeight="Bold" FontSize="13" TextAlignment="Center"
-                       VerticalAlignment="Center">
-                <Run Text="{Binding Items.CurrentPageNumber, Mode=OneWay}" />
-                <Run Text=" of " />
-                <Run Text="{Binding Items.TotalPagesNumber, Mode=OneWay}" />
+                           VerticalAlignment="Center">
+                    <Run Text="{Binding Items.CurrentPageNumber, Mode=OneWay}" />
+                    <Run Text=" of " />
+                    <Run Text="{Binding Items.TotalPagesNumber, Mode=OneWay}" />
                 </TextBlock>
-                <Button Content="Next" ToolTip="Next Page" Width="70" Command="{Binding GoToNextPageCommand}" />
+                <Button Width="50"
+                        Height="50"
+                        IsEnabled="True"
+                        ToolTip="Previous Page"
+                        HorizontalAlignment="Left"
+                        Command="{Binding GoToNextPageCommand}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_chevron_right}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
             </StackPanel>
 
         </Grid>
-    
+
     </Grid>
 </UserControl>

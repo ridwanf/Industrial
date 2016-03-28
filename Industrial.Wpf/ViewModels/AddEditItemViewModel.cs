@@ -6,7 +6,7 @@ using Industrial.Service.ViewModel.Master;
 
 namespace Industrial.Wpf.ViewModels
 {
-    public class AddEditItemViewModel : BindableBase
+    public class AddEditItemViewModel : ValidatableBindableBase
     {
         private readonly IItemProductService _service;
         private bool _editMode;

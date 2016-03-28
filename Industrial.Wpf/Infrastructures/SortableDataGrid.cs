@@ -48,38 +48,38 @@ namespace Industrial.Wpf.Infrastructures
             _currentSortDirection = _currentSortColumn.SortDirection;
         }
 
-        // Deactivate the default Grid sorting, call the ISortbleSorting
-        protected override void OnSorting(DataGridSortingEventArgs eventArgs)
-        {
-            eventArgs.Handled = true;
+        //// Deactivate the default Grid sorting, call the ISortbleSorting
+        //protected override void OnSorting(DataGridSortingEventArgs eventArgs)
+        //{
+        //    eventArgs.Handled = true;
 
-            _currentSortColumn = eventArgs.Column;
+        //    _currentSortColumn = eventArgs.Column;
 
-            var direction = (_currentSortColumn.SortDirection != ListSortDirection.Ascending)
-                ? ListSortDirection.Ascending
-                : ListSortDirection.Descending;
+        //    var direction = (_currentSortColumn.SortDirection != ListSortDirection.Ascending)
+        //        ? ListSortDirection.Ascending
+        //        : ListSortDirection.Descending;
 
-            // Call ISortable Sorting to sort the complete collection
-            if (FullItemsSource != null)
-            {
-                FullItemsSource.Sort(_currentSortColumn.SortMemberPath, direction.ToString());
-            }
+        //    // Call ISortable Sorting to sort the complete collection
+        //    if (FullItemsSource != null)
+        //    {
+        //        FullItemsSource.Sort(_currentSortColumn.SortMemberPath, direction.ToString());
+        //    }
 
-            _currentSortColumn.SortDirection = null;
+        //    _currentSortColumn.SortDirection = null;
 
-            _currentSortColumn.SortDirection = direction;
+        //    _currentSortColumn.SortDirection = direction;
 
-            _currentSortDirection = direction;
-        }
+        //    _currentSortDirection = direction;
+        //}
 
-        // Restores the sorting direction every time the source gets updated e.g. the page is changed
-        protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
-        {
-            base.OnItemsSourceChanged(oldValue, newValue);
+        //// Restores the sorting direction every time the source gets updated e.g. the page is changed
+        //protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
+        //{
+        //    base.OnItemsSourceChanged(oldValue, newValue);
 
-            if (_currentSortColumn != null)
-                _currentSortColumn.SortDirection = _currentSortDirection;
-        }
+        //    if (_currentSortColumn != null)
+        //        _currentSortColumn.SortDirection = _currentSortDirection;
+        //}
 
         #endregion
     }

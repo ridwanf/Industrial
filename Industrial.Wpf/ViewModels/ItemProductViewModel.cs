@@ -20,19 +20,15 @@ namespace Industrial.Wpf.ViewModels
     public class ItemProductViewModel : PageableBase
     {
         public IItemProductService _Service;
-        private IDialogService _dialogService;
         private SortablePageableCollection<ItemProductModel> _items;
         private int _totalItem = 0;
 
-        private AddEditItemViewModel _currentItem;
-        private List<ItemProductModel> _allItems;
         private string _searchWord;
 
         public RelayCommand NewItem { get; private set; }
         public RelayCommand<ItemProductModel> EditItemCommand { get; private set; }
         public RelayCommand<ItemProductModel> DeleteItemCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
-        public RelayCommand TestAlert { get; private set; }
         public RelayCommand GoToNextPageCommand { get; private set; }
         public RelayCommand GoToPreviousPageCommand { get; private set; }
         public RelayCommand ChangePageSizeCommand { get; private set; }
@@ -41,8 +37,7 @@ namespace Industrial.Wpf.ViewModels
         public event Action<ItemProductModel> AddItemRequested = delegate { };
         public event Action<ItemProductModel> EditItemRequested = delegate { };
         public event Action<ItemProductModel> DeleteItemRequested = delegate { };
-        public event CancelEventHandler ConfirmDelete;
-
+      
 
         public ItemProductViewModel(IItemProductService service)
         {
@@ -76,15 +71,14 @@ namespace Industrial.Wpf.ViewModels
         private void OnAddCommand()
         {
             AddItemRequested(new ItemProductModel() { Id = 0, IsActive = true, CreatedDate = DateTime.Now });
-            _totalItem++;
-            LoadItems();
+           // _totalItem++;
         }
 
         private async void OnDeleteCommand(ItemProductModel obj)
         {
             
-            var result = await DialogService.AskQuestionAsync("Delete Match",
-                "Are you sure you want to delete this Match record?");
+            var result = await DialogService.AskQuestionAsync("Delete Data",
+                "Are you sure you want to delete this  record?");
             if (result == MessageDialogResult.Affirmative)
             {
                await _Service.DeleteAsync(obj.Id);
@@ -118,12 +112,7 @@ namespace Industrial.Wpf.ViewModels
 
         }
 
-        public AddEditItemViewModel CurrentItem
-        {
-            get { return _currentItem; }
-            set { SetProperty(ref _currentItem, value); }
-        }
-
+      
 
         public override string ViewTitle
         {

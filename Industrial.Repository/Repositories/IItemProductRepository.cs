@@ -10,6 +10,5 @@ namespace Industrial.Repository.Repositories
 {
     public interface IItemProductRepository:IBaseRepository<ItemProduct>
     {
-        void SoftDelete(ItemProduct item);
     }
 }
