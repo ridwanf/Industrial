@@ -13,6 +13,8 @@ namespace Industrial.Wpf.ViewModels
         private SupplierViewModel _supplierViewModel;
         private AddEditSupplierViewModel _addEditSupplierViewModel;
         private MainWindowViewModel _mainWindowViewModel;
+        private BankViewModel _bankViewModel;
+        private AddEditBankViewModel _addEditBankViewModel;
         public RelayCommand<string> NavCommand { get; private set; }
 
         private BindableBase _currentViewModel;
@@ -38,6 +40,34 @@ namespace Industrial.Wpf.ViewModels
             _supplierViewModel.AddSupplierRequested +=  NavToAddSupplier;
 
             _addEditSupplierViewModel.Done += NavToSupplierist;
+
+
+            _bankViewModel = ContainerHelper.Container.Resolve<BankViewModel>();
+            _addEditBankViewModel = ContainerHelper.Container.Resolve<AddEditBankViewModel>();
+            _bankViewModel.EditBankRequested += NavToEditBank;
+            _bankViewModel.AddBankRequested += NavToAddBank;
+            _addEditBankViewModel.Done += NavToBankList;
+        }
+
+        private void NavToBankList()
+        {
+            CurrentViewModel = _bankViewModel;
+        }
+
+        private void NavToAddBank(BankModel obj)
+        {
+            _addEditBankViewModel.EditMode = false;
+            _addEditBankViewModel.Title = "Add Bank";
+            _addEditBankViewModel.SetBank(obj);
+            CurrentViewModel = _addEditBankViewModel;
+        }
+
+        private void NavToEditBank(BankModel obj)
+        {
+            _addEditBankViewModel.EditMode = true;
+            _addEditBankViewModel.Title = "Edit Bank";
+            _addEditBankViewModel.SetBank(obj);
+            CurrentViewModel = _addEditBankViewModel;
         }
 
         private void NavToItemList()
@@ -104,6 +134,9 @@ namespace Industrial.Wpf.ViewModels
                     break;
                 case "supplier":
                     CurrentViewModel = _supplierViewModel;
+                    break;
+                case "bank":
+                    CurrentViewModel = _bankViewModel;
                     break;
                 case "testPaging":
                     CurrentViewModel = _testPagingGridViewModel;

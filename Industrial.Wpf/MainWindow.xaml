@@ -84,6 +84,15 @@
                 <views:AddEditSupplierView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:BankViewModel}">
+                <views:BankView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:AddEditBankViewModel}">
+                <views:AddEditBankView />
+            </DataTemplate>
+
+
             <DataTemplate DataType="{x:Type viewModels:TestPagingGridViewModel}">
                 <views:TestPagingGridView />
             </DataTemplate>
@@ -114,6 +123,9 @@
                     <MenuItem Header="Supplier"
                               Command="{Binding NavCommand}"
                               CommandParameter="supplier" />
+                    <MenuItem Header="Bank"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="bank" />
                     <MenuItem Header="Test Paging"
                               Command="{Binding NavCommand}"
                               CommandParameter="testPaging" />

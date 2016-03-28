@@ -27,6 +27,11 @@ namespace Industrial.Wpf.Infrastructures
                 new ContainerControlledLifetimeManager());
 
 
+            _container.RegisterType<IBankService, BankService>(
+             new ContainerControlledLifetimeManager());
+            _container.RegisterType<IBankRepository, BankRepository>(
+                new ContainerControlledLifetimeManager());
+
 
             _container.RegisterType<IUnitOfWork, EFUnitOfWork>(
                new ContainerControlledLifetimeManager());
