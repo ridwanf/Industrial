@@ -32,6 +32,11 @@ namespace Industrial.Wpf.Infrastructures
             _container.RegisterType<IBankRepository, BankRepository>(
                 new ContainerControlledLifetimeManager());
 
+            _container.RegisterType<IUnitOfMeasureService, UnitOfMeasureService>(
+            new ContainerControlledLifetimeManager());
+            _container.RegisterType<IUnitOfMeasureRepository, UnitOfMeasureRepository>(
+                new ContainerControlledLifetimeManager());
+
 
             _container.RegisterType<IUnitOfWork, EFUnitOfWork>(
                new ContainerControlledLifetimeManager());

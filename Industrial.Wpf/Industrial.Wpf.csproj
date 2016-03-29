@@ -99,11 +99,13 @@
     <Compile Include="ViewModels\AddEditBankViewModel.cs" />
     <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\AddEditSupplierViewModel.cs" />
+    <Compile Include="ViewModels\AddEditUnitOfMeasureViewModel.cs" />
     <Compile Include="ViewModels\BankViewModel.cs" />
     <Compile Include="ViewModels\ItemProductViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
     <Compile Include="ViewModels\TestPagingGridViewModel.cs" />
+    <Compile Include="ViewModels\UnitOfMeasureViewModel.cs" />
     <Compile Include="Views\AddEditBankView.xaml.cs">
       <DependentUpon>AddEditBankView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +115,9 @@
     <Compile Include="Views\AddEditSupplierView.xaml.cs">
       <DependentUpon>AddEditSupplierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddEditUnitOfMeasureView.xaml.cs">
+      <DependentUpon>AddEditUnitOfMeasureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BankView.xaml.cs">
       <DependentUpon>BankView.xaml</DependentUpon>
     </Compile>
@@ -121,9 +126,13 @@
     </Compile>
     <Compile Include="Views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\TestPagingGridView.xaml.cs">
       <DependentUpon>TestPagingGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnitOfMeasureView.xaml.cs">
+      <DependentUpon>UnitOfMeasureView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddEditUnitOfMeasureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BankView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestPagingGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UnitOfMeasureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

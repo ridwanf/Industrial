@@ -26,6 +26,7 @@ namespace Industrial.Data.Domain
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<ItemBOM> ItemBoms { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -53,6 +53,32 @@
     <Compile Include="Domain\ItemProduct.cs" />
     <Compile Include="Domain\MainDataContext.cs" />
     <Compile Include="Domain\Supplier.cs" />
+    <Compile Include="Domain\UnitOfMeasure.cs" />
+    <Compile Include="Migrations\201603110427589_Initial.cs" />
+    <Compile Include="Migrations\201603110427589_Initial.Designer.cs">
+      <DependentUpon>201603110427589_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603110609207_AddBaseClass.cs" />
+    <Compile Include="Migrations\201603110609207_AddBaseClass.Designer.cs">
+      <DependentUpon>201603110609207_AddBaseClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603150209125_Update Model.cs" />
+    <Compile Include="Migrations\201603150209125_Update Model.Designer.cs">
+      <DependentUpon>201603150209125_Update Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603281333107_Updatetablebank.cs" />
+    <Compile Include="Migrations\201603281333107_Updatetablebank.Designer.cs">
+      <DependentUpon>201603281333107_Updatetablebank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603290550119_add UOM.cs" />
+    <Compile Include="Migrations\201603290550119_add UOM.Designer.cs">
+      <DependentUpon>201603290550119_add UOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603290615524_edit UOM.cs" />
+    <Compile Include="Migrations\201603290615524_edit UOM.Designer.cs">
+      <DependentUpon>201603290615524_edit UOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\DataContextFactory.cs" />
@@ -71,6 +97,26 @@
       <Project>{d9176c2f-9b66-4a94-9221-4d3a4b7361c3}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603110427589_Initial.resx">
+      <DependentUpon>201603110427589_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603110609207_AddBaseClass.resx">
+      <DependentUpon>201603110609207_AddBaseClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603150209125_Update Model.resx">
+      <DependentUpon>201603150209125_Update Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603281333107_Updatetablebank.resx">
+      <DependentUpon>201603281333107_Updatetablebank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603290550119_add UOM.resx">
+      <DependentUpon>201603290550119_add UOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603290615524_edit UOM.resx">
+      <DependentUpon>201603290615524_edit UOM.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

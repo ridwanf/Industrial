@@ -15,6 +15,8 @@ namespace Industrial.Wpf.ViewModels
         private MainWindowViewModel _mainWindowViewModel;
         private BankViewModel _bankViewModel;
         private AddEditBankViewModel _addEditBankViewModel;
+        private UnitOfMeasureViewModel _unitOfMeasureViewModel;
+        private AddEditUnitOfMeasureViewModel _addEditUnitOfMeasureViewModel;
         public RelayCommand<string> NavCommand { get; private set; }
 
         private BindableBase _currentViewModel;
@@ -47,6 +49,36 @@ namespace Industrial.Wpf.ViewModels
             _bankViewModel.EditBankRequested += NavToEditBank;
             _bankViewModel.AddBankRequested += NavToAddBank;
             _addEditBankViewModel.Done += NavToBankList;
+
+
+            _unitOfMeasureViewModel = ContainerHelper.Container.Resolve<UnitOfMeasureViewModel>();
+            _addEditUnitOfMeasureViewModel = ContainerHelper.Container.Resolve<AddEditUnitOfMeasureViewModel>();
+            _unitOfMeasureViewModel.EditUnitOfMeasureRequested += NavToEditUOM;
+            _unitOfMeasureViewModel.AddUnitOfMeasureRequested += NavToAddUOM;
+            _addEditUnitOfMeasureViewModel.Done += NavToUOMList;
+
+        }
+
+        private void NavToUOMList()
+        {
+             CurrentViewModel = _unitOfMeasureViewModel;
+
+        }
+
+        private void NavToEditUOM(UnitOfMeasureModel obj)
+        {
+            _addEditUnitOfMeasureViewModel.EditMode = true;
+            _addEditUnitOfMeasureViewModel.Title = "Edit Unit Of Measure";
+            _addEditUnitOfMeasureViewModel.SetUnitOfMeasure(obj);
+            CurrentViewModel = _addEditUnitOfMeasureViewModel;
+        }
+
+        private void NavToAddUOM(UnitOfMeasureModel obj)
+        {
+            _addEditUnitOfMeasureViewModel.EditMode = false;
+            _addEditUnitOfMeasureViewModel.Title = "Add Unit Of Measure";
+            _addEditUnitOfMeasureViewModel.SetUnitOfMeasure(obj);
+            CurrentViewModel = _addEditUnitOfMeasureViewModel;
         }
 
         private void NavToBankList()
@@ -137,6 +169,9 @@ namespace Industrial.Wpf.ViewModels
                     break;
                 case "bank":
                     CurrentViewModel = _bankViewModel;
+                    break;
+                case "uom":
+                    CurrentViewModel = _unitOfMeasureViewModel;
                     break;
                 case "testPaging":
                     CurrentViewModel = _testPagingGridViewModel;

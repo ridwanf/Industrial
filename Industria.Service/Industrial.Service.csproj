@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\Master\UnitOfMeasureMapper.cs" />
     <Compile Include="Mappers\Master\BankMapper.cs" />
     <Compile Include="Mappers\Master\ItemProductMapper.cs" />
     <Compile Include="Mappers\Master\SupplierMapper.cs" />
@@ -58,10 +59,17 @@
     <Compile Include="Services\ItemProductService.cs">
       <DependentUpon>IItemProductService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\IUnitOfMeasureService.cs" />
     <Compile Include="Services\SupplierService.cs">
       <DependentUpon>ISupplierService.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Master\BankModel.cs" />
+    <Compile Include="Services\UnitOfMeasureService.cs">
+      <DependentUpon>IUnitOfMeasureService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Master\BankModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModel\Master\UnitOfMeasureModel.cs" />
     <Compile Include="ViewModel\Master\ItemProductModel.cs" />
     <Compile Include="ViewModel\Master\IViewModelBase.cs" />
     <Compile Include="ViewModel\Master\SupplierModel.cs" />

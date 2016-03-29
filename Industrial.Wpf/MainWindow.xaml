@@ -92,6 +92,15 @@
                 <views:AddEditBankView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:UnitOfMeasureViewModel}">
+                <views:UnitOfMeasureView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:AddEditUnitOfMeasureViewModel}">
+                <views:AddEditUnitOfMeasureView />
+            </DataTemplate>
+
+            
 
             <DataTemplate DataType="{x:Type viewModels:TestPagingGridViewModel}">
                 <views:TestPagingGridView />
@@ -126,6 +135,9 @@
                     <MenuItem Header="Bank"
                               Command="{Binding NavCommand}"
                               CommandParameter="bank" />
+                    <MenuItem Header="Unit Of Measure"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="uom" />
                     <MenuItem Header="Test Paging"
                               Command="{Binding NavCommand}"
                               CommandParameter="testPaging" />
