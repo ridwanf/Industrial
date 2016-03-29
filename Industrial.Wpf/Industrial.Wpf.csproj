@@ -104,7 +104,9 @@
     <Compile Include="ViewModels\ItemProductViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
-    <Compile Include="ViewModels\TestPagingGridViewModel.cs" />
+    <Compile Include="ViewModels\TestPagingGridViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\UnitOfMeasureViewModel.cs" />
     <Compile Include="Views\AddEditBankView.xaml.cs">
       <DependentUpon>AddEditBankView.xaml</DependentUpon>
