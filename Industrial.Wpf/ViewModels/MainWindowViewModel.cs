@@ -17,6 +17,8 @@ namespace Industrial.Wpf.ViewModels
         private AddEditBankViewModel _addEditBankViewModel;
         private UnitOfMeasureViewModel _unitOfMeasureViewModel;
         private AddEditUnitOfMeasureViewModel _addEditUnitOfMeasureViewModel;
+        private BranchViewModel _branchViewModel;
+        private AddEditBranchViewModel _addEditBranchViewModel;
         public RelayCommand<string> NavCommand { get; private set; }
 
         private BindableBase _currentViewModel;
@@ -57,6 +59,33 @@ namespace Industrial.Wpf.ViewModels
             _unitOfMeasureViewModel.AddUnitOfMeasureRequested += NavToAddUOM;
             _addEditUnitOfMeasureViewModel.Done += NavToUOMList;
 
+            _branchViewModel = ContainerHelper.Container.Resolve<BranchViewModel>();
+            _addEditBranchViewModel = ContainerHelper.Container.Resolve<AddEditBranchViewModel>();
+            _branchViewModel.EditBranchRequested += NavToEditBranch;
+            _branchViewModel.AddBranchRequested += NavToAddBranch;
+            _addEditBranchViewModel.Done += NavToBranchList;
+
+        }
+
+        private void NavToBranchList()
+        {
+            CurrentViewModel = _branchViewModel;
+        }
+
+        private void NavToAddBranch(BranchModel obj)
+        {
+            _addEditBranchViewModel.EditMode = false;
+            _addEditBranchViewModel.Title = "Add Branch";
+            _addEditBranchViewModel.SetBranch(obj);
+            CurrentViewModel = _addEditBranchViewModel;
+        }
+
+        private void NavToEditBranch(BranchModel obj)
+        {
+            _addEditBranchViewModel.EditMode = true;
+            _addEditBranchViewModel.Title = "Edit Branch";
+            _addEditBranchViewModel.SetBranch(obj);
+            CurrentViewModel = _addEditBranchViewModel;
         }
 
         private void NavToUOMList()
@@ -172,6 +201,9 @@ namespace Industrial.Wpf.ViewModels
                     break;
                 case "uom":
                     CurrentViewModel = _unitOfMeasureViewModel;
+                    break;
+                case "branch":
+                    CurrentViewModel = _branchViewModel;
                     break;
                 case "testPaging":
                     CurrentViewModel = _testPagingGridViewModel;

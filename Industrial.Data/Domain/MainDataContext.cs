@@ -32,7 +32,9 @@ namespace Industrial.Data.Domain
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
+            modelBuilder.Entity<Branch>().HasOptional(b => b.ParentBranch)
+                                  .WithMany(b => b.Children)
+                                  .HasForeignKey(b => b.ParentBranchId);
             base.OnModelCreating(modelBuilder);
         }
 

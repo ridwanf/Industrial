@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Industrial.Wpf.Views.AddEditBranchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:Core.Common.UI;assembly=Core.Common.UI"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             ui:MvvmBehaviors.LoadedMethodName="LoadBranchs">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="{Binding ViewTitle}"
+                   Style="{DynamicResource DescriptionHeaderStyle}" />
+        </StackPanel>
+        <Grid x:Name="grid1" Grid.Row="1" VerticalAlignment="Top" Margin="10,10,10,10" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0"
+                   Content="Branch Name:" />
+            <TextBox x:Name="nameTextBox" Style="{DynamicResource InputTextStyle}"
+
+                     Text="{Binding Branch.Name, ValidatesOnDataErrors=True}"
+                     controls:TextBoxHelper.Watermark="Name"
+                     Grid.Row="0" Margin="3"
+                     HorizontalAlignment="Left" Grid.Column="1" />
+
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0"
+                   Content="Branch Parent:" />
+            <ComboBox Width="250"
+                      Grid.Row="1"
+                      Grid.Column="1"
+                      controls:TextBoxHelper.Watermark="Please select an item..."
+                      ItemsSource="{Binding DataContext.BranchModels, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}}}"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="Id"
+                      SelectedItem="{Binding SelectedBranch}"
+                     controls:TextBoxHelper.ClearTextButton="True"
+                      Margin="3"
+                      IsEditable="False" />
+
+            <!--<ComboBox Width="250"
+                      Grid.Row="2"
+                      Grid.Column="1"
+                      controls:TextBoxHelper.Watermark="Please select an item..."
+                                            ItemsSource="{Binding DataContext.BranchModels, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}}"
+
+
+                     controls:TextBoxHelper.ClearTextButton="True"
+                      Margin="3"
+                      SelectedIndex="0"
+                      IsEditable="False" />-->
+
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="2"
+                    Margin="90,10,10,10">
+            <Button Margin="5" Command="{Binding SaveCommand}" Style="{DynamicResource SquareButtonStyle}" Width="80"
+                    controls:ButtonHelper.PreserveTextCase="True">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="Save" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Command="{Binding CancelCommand}" Style="{DynamicResource SquareButtonStyle}" Width="80"
+                    controls:ButtonHelper.PreserveTextCase="True">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_undo_curve}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Text="Cancel" />
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+
+    </Grid>
+
+</UserControl>

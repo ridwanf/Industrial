@@ -100,7 +100,14 @@
                 <views:AddEditUnitOfMeasureView />
             </DataTemplate>
 
-            
+            <DataTemplate DataType="{x:Type viewModels:BranchViewModel}">
+                <views:BranchView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:AddEditBranchViewModel}">
+                <views:AddEditBranchView />
+            </DataTemplate>
+
 
             <DataTemplate DataType="{x:Type viewModels:TestPagingGridViewModel}">
                 <views:TestPagingGridView />
@@ -138,6 +145,9 @@
                     <MenuItem Header="Unit Of Measure"
                               Command="{Binding NavCommand}"
                               CommandParameter="uom" />
+                    <MenuItem Header="Branch"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="branch" />
                     <MenuItem Header="Test Paging"
                               Command="{Binding NavCommand}"
                               CommandParameter="testPaging" />

@@ -97,10 +97,12 @@
     <Compile Include="Infrastructures\PagerModel.cs" />
     <Compile Include="Infrastructures\SortableDataGrid.cs" />
     <Compile Include="ViewModels\AddEditBankViewModel.cs" />
+    <Compile Include="ViewModels\AddEditBranchViewModel.cs" />
     <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\AddEditSupplierViewModel.cs" />
     <Compile Include="ViewModels\AddEditUnitOfMeasureViewModel.cs" />
     <Compile Include="ViewModels\BankViewModel.cs" />
+    <Compile Include="ViewModels\BranchViewModel.cs" />
     <Compile Include="ViewModels\ItemProductViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
@@ -110,6 +112,9 @@
     <Compile Include="ViewModels\UnitOfMeasureViewModel.cs" />
     <Compile Include="Views\AddEditBankView.xaml.cs">
       <DependentUpon>AddEditBankView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddEditBranchView.xaml.cs">
+      <DependentUpon>AddEditBranchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddEditItemView.xaml.cs">
       <DependentUpon>AddEditItemView.xaml</DependentUpon>
@@ -122,6 +127,9 @@
     </Compile>
     <Compile Include="Views\BankView.xaml.cs">
       <DependentUpon>BankView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BranchView.xaml.cs">
+      <DependentUpon>BranchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemProductView.xaml.cs">
       <DependentUpon>ItemProductView.xaml</DependentUpon>
@@ -156,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddEditBranchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddEditItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BankView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BranchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,6 +224,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Industrial.Service.ViewModel.Master.BranchModel.datasource" />
     <None Include="Properties\DataSources\Industrial.Service.ViewModel.Master.ItemProductModel.datasource" />
     <None Include="Properties\DataSources\Industrial.Service.ViewModel.Master.SupplierModel.datasource" />
     <None Include="Properties\Settings.settings">

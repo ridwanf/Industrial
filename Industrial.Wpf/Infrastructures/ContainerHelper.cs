@@ -37,6 +37,11 @@ namespace Industrial.Wpf.Infrastructures
             _container.RegisterType<IUnitOfMeasureRepository, UnitOfMeasureRepository>(
                 new ContainerControlledLifetimeManager());
 
+            _container.RegisterType<IBranchRepository, BranchRepository>(
+           new ContainerControlledLifetimeManager());
+            _container.RegisterType<IBranchService, BranchService>(
+                new ContainerControlledLifetimeManager());
+
 
             _container.RegisterType<IUnitOfWork, EFUnitOfWork>(
                new ContainerControlledLifetimeManager());

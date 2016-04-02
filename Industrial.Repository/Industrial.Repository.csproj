@@ -43,6 +43,10 @@
     <Compile Include="Repositories\BankRepository.cs">
       <DependentUpon>IBankRepository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\BranchRepository.cs">
+      <DependentUpon>IBranchRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IBranchRepository.cs" />
     <Compile Include="Repositories\IUnitOfMeasureRepository.cs" />
     <Compile Include="Repositories\IBankRepository.cs" />
     <Compile Include="Repositories\IItemProductRepository.cs" />
