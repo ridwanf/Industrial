@@ -2,7 +2,7 @@
 
 namespace Industrial.Service.Services
 {
-    public interface IItemProductService : IBaseService<ItemProductModel>
+    public interface IItemProductService : IBaseService<ItemProductModel,int>
     {
         
     }

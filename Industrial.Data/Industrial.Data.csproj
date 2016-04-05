@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Role.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Bank.cs" />
     <Compile Include="Domain\BaseClass.cs" />
     <Compile Include="Domain\Branch.cs" />
@@ -98,6 +102,18 @@
     <Compile Include="Migrations\201603290848444_EditBranchAddRelationship.Designer.cs">
       <DependentUpon>201603290848444_EditBranchAddRelationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604050919578_add user table.cs" />
+    <Compile Include="Migrations\201604050919578_add user table.Designer.cs">
+      <DependentUpon>201604050919578_add user table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051307584_change name user roles table.cs" />
+    <Compile Include="Migrations\201604051307584_change name user roles table.Designer.cs">
+      <DependentUpon>201604051307584_change name user roles table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051434466_edit user table.cs" />
+    <Compile Include="Migrations\201604051434466_edit user table.Designer.cs">
+      <DependentUpon>201604051434466_edit user table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,6 +160,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603290848444_EditBranchAddRelationship.resx">
       <DependentUpon>201603290848444_EditBranchAddRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604050919578_add user table.resx">
+      <DependentUpon>201604050919578_add user table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051307584_change name user roles table.resx">
+      <DependentUpon>201604051307584_change name user roles table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051434466_edit user table.resx">
+      <DependentUpon>201604051434466_edit user table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 
 namespace Industrial.Service.Services
 {
-   public interface IBankService:IBaseService<BankModel>
+   public interface IBankService:IBaseService<BankModel,int>
    {
     }
 }

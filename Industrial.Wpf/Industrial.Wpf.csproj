@@ -88,10 +88,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructures\AnonymousIdentity.cs" />
     <Compile Include="Infrastructures\ContainerHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructures\CustomIdentity.cs" />
+    <Compile Include="Infrastructures\CustomPrincipal.cs" />
     <Compile Include="Infrastructures\DialogService.cs" />
+    <Compile Include="Infrastructures\IAuthenticationService.cs" />
     <Compile Include="Infrastructures\ISortable.cs" />
     <Compile Include="Infrastructures\PageableCollection.cs" />
     <Compile Include="Infrastructures\PagerModel.cs" />
@@ -101,6 +105,7 @@
     <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\AddEditSupplierViewModel.cs" />
     <Compile Include="ViewModels\AddEditUnitOfMeasureViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\BankViewModel.cs" />
     <Compile Include="ViewModels\BranchViewModel.cs" />
     <Compile Include="ViewModels\ItemProductViewModel.cs" />

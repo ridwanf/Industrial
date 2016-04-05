@@ -27,10 +27,17 @@ namespace Industrial.Data.Domain
         public virtual DbSet<ItemBOM> ItemBoms { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
-
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>()
+               .HasMany(e => e.Users)
+               .WithMany(e => e.Roles)
+               .Map(m => m.ToTable("UserRole").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<Branch>().HasOptional(b => b.ParentBranch)
                                   .WithMany(b => b.Children)

@@ -47,6 +47,7 @@
       <DependentUpon>IBranchRepository.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IBranchRepository.cs" />
+    <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\IUnitOfMeasureRepository.cs" />
     <Compile Include="Repositories\IBankRepository.cs" />
     <Compile Include="Repositories\IItemProductRepository.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Repositories\ItemProductRepository.cs">
       <DependentUpon>IItemProductRepository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs">
       <DependentUpon>ISupplierRepository.cs</DependentUpon>
     </Compile>

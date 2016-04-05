@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
@@ -9,34 +11,38 @@ using Industrial.Service.ViewModel.Master;
 
 namespace Industrial.Service.Services
 {
-    public class BankService : IBankService
+    public interface IRoleService : IBaseService<RoleModel, Guid>
     {
-        private readonly IBankRepository _repository;
+    }
+
+    public class RoleService : IRoleService
+    {
+
+        private readonly IRoleRepository _repository;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        public BankService(IBankRepository repository,IUnitOfWorkFactory unitOfWorkFactory)
+        public RoleService(IRoleRepository repository, IUnitOfWorkFactory unitOfWorkFactory)
         {
             _repository = repository;
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public Task<List<BankModel>> GetAllAsync()
+        public Task<List<RoleModel>> GetAllAsync()
         {
             return Task.Run(() => GetAll());
         }
 
-        public List<BankModel> GetAll()
+        public List<RoleModel> GetAll()
         {
-            List<Bank> data = _repository.FindBy(a => a.IsActive).ToList();
-
+            List<Role> data = _repository.FindAll(a => a.IsActive).ToList();
             return data.ConvertToListModel().ToList();
         }
 
-        public Task<BankModel> FindByIdAsync(int id)
+        public Task<RoleModel> FindByIdAsync(Guid id)
         {
             return Task.Run(() => FindById(id));
         }
-        public BankModel FindById(int id)
+        public RoleModel FindById(Guid id)
         {
             var result = _repository.FindBy(a => a.Id == id).First();
             if (result != null)
@@ -46,25 +52,25 @@ namespace Industrial.Service.Services
             return null;
         }
 
-        public Task<List<BankModel>> GetAllAsync(int skip, int pageSize)
+        public Task<List<RoleModel>> GetAllAsync(int skip, int pageSize)
         {
             return Task.Run(() => GetAll(skip, pageSize));
         }
 
-        public List<BankModel> GetAll(int page, int pageSize)
+        public List<RoleModel> GetAll(int page, int pageSize)
         {
             var data = _repository.FindAll(a => a.IsActive).OrderByDescending(a => a.Id).Skip((page - 1) * pageSize).Take(pageSize);
 
             return data.ConvertToListModel().ToList();
         }
 
-        public async Task<BankModel> CreateAsync(BankModel item)
+        public async Task<RoleModel> CreateAsync(RoleModel item)
         {
             await Task.Run(() => Create(item));
             return item;
         }
 
-        private BankModel Create(BankModel item)
+        private RoleModel Create(RoleModel item)
         {
             var data = item.ConvertToData();
             using (_unitOfWorkFactory.Create())
@@ -76,13 +82,13 @@ namespace Industrial.Service.Services
             return data.ConvertToModel();
         }
 
-        public async Task<BankModel> EditAsync(BankModel item)
+        public async Task<RoleModel> EditAsync(RoleModel item)
         {
             await Task.Run(() => Edit(item));
             return item;
         }
 
-        public BankModel Edit(BankModel item)
+        public RoleModel Edit(RoleModel item)
         {
             var data = item.ConvertToData();
             using (_unitOfWorkFactory.Create())
@@ -93,23 +99,28 @@ namespace Industrial.Service.Services
         }
 
 
-        public async Task<BankModel> DeleteAsync(int id)
+        public async Task<RoleModel> DeleteAsync(Guid id)
         {
             var item = await Task.Run(() => Delete(id));
             return item;
         }
 
-        public IEnumerable<BankModel> Search(string searchWord, int i, int pageSize, out int total)
+        public IEnumerable<RoleModel> Search(string searchWord, int i, int pageSize, out int total)
         {
             var data = _repository
-                    .FindBy(a => (a.IsActive) && (a.Name.Contains(searchWord))).OrderByDescending(a => a.Id).Skip((i - 1) * pageSize).Take(pageSize);
+                .FindBy(a => (a.IsActive) && (a.Name.Contains(searchWord))).OrderByDescending(a => a.Id).Skip((i - 1) * pageSize).Take(pageSize);
             total = data.Count();
             return data.ConvertToListModel();
         }
 
-        public BankModel Delete(int id)
+        public Task<IEnumerable<RoleModel>> GetDropDownAsync(Guid id)
         {
-            var item = _repository.FindBy(a => a.Id == id).FirstOrDefault();
+            return Task.Run(() => GetAll().Where(a => a.Id != id));
+        }
+
+        public RoleModel Delete(Guid id)
+        {
+            var item = _repository.FindBy(a => a.Id == id).Include(a=>a.Users).FirstOrDefault();
             if (item == null)
                 return null;
             using (_unitOfWorkFactory.Create())

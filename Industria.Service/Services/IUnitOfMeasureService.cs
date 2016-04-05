@@ -4,7 +4,7 @@ using Industrial.Service.ViewModel.Master;
 
 namespace Industrial.Service.Services
 {
-   public interface IUnitOfMeasureService : IBaseService<UnitOfMeasureModel>
+   public interface IUnitOfMeasureService : IBaseService<UnitOfMeasureModel,int>
     {
     }
 }
